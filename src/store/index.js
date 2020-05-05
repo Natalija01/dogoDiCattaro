@@ -10,21 +10,22 @@ export const store = new Vuex.Store({
     user: null,
     loading: false,
     error: null,
-    loadDogs:[]
+    loadDogs: [],
   },
 
   mutations: {
-    /* Blogs */
     setLoadedBlog(state, payload) {
       state.loadBlogs = payload;
     },
-    /* DOGS */
-    setLoadedDogs(state, payload){
+    setLoadedDog(state, payload) {
       state.loadDogs = payload;
     },
     /* Dodavanje novih blogova u state  */
     createBlog(state, payload) {
       state.loadBlogs.push(payload);
+    },
+    createDog(state, payload) {
+      state.loadDogs.push(payload);
     },
     setUser(state, payload) {
       state.user = payload;
@@ -83,9 +84,7 @@ export const store = new Vuex.Store({
           commit("setLoading", true);
         });
     },
-    //Uzimanje pasa iz firebase baze
-
-    loadDogs({ commit }) {
+    loadDog({ commit }) {
       commit("setLoading", true);
       firebase
         .database()
@@ -94,21 +93,16 @@ export const store = new Vuex.Store({
         .then((data) => {
           const dogs = [];
           const obj = data.val();
+          
           for (let key in obj) {
             dogs.push({
               id: key,
               name: obj[key].name,
-              callName: obj[key].callName,
-              born: obj[key].born,
-              fatherName: obj[key].fatherName,
-              motherName: obj[key].motherName,
-              awards: obj[key].awards,
-              genre: obj[key].genre,
-              imageUrls: obj[key].imageUrls
+              imageUrl: obj[key].imageUrl,
             });
           }
           commit("setLoading", false);
-          commit("setLoadedBlog", dogs);
+          commit("setLoadedDog", dogs);
         })
         .catch((error) => {
           console.log(error);
@@ -172,6 +166,58 @@ export const store = new Vuex.Store({
           console.log(error);
         });
     },
+    createDog({ commit }, payload) {
+      const dog = {
+        name: payload.name,
+      };
+      let imageUrl;
+      let key;
+      firebase
+        .database()
+        .ref("dogs")
+        .push(dog)
+        .then((data) => {
+          key = data.key;
+
+          return key;
+        })
+        .then((key) => {
+          const filename = payload.image.name;
+          const ext = filename.slice(filename.lastIndexOf("."));
+          return firebase
+            .storage()
+            .ref("dogs/" + key + "." + ext)
+            .put(payload.image);
+        })
+        .then((filedata) => {
+          let imagePath = filedata.metadata.fullPath;
+          // creating ref to our image file and get the url
+          return firebase
+            .storage()
+            .ref()
+            .child(imagePath)
+            .getDownloadURL();
+        })
+        .then((url) => {
+          imageUrl = url;
+          return firebase
+            .database()
+            .ref("dogs")
+            .child(key)
+            .update({ imageUrl: imageUrl });
+        })
+
+        .then(() => {
+          commit("createBlog", {
+            ...dog,
+            imageUrl: imageUrl,
+            id: key,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
 
     updateBlogData({ commit }, payload) {
       commit("setLoading", true);
@@ -193,12 +239,12 @@ export const store = new Vuex.Store({
 
         .then(() => {
           commit("setLoading", false);
-          commit('updateBlog', payload)
+          commit("updateBlog", payload);
         })
-        .catch((error)=>{
-          console.log(error)
+        .catch((error) => {
+          console.log(error);
           commit("setLoading", false);
-        })
+        });
     },
 
     signUserIn({ commit }, payload) {
@@ -241,15 +287,26 @@ export const store = new Vuex.Store({
         return blogA.date > blogB.date;
       });
     },
+    loadedDogs(state) {
+      return state.loadDogs
+    },
     /* Ovaj getter uzima sve blogove i prikazuje samo zadnja tri */
     featuredBlogs(state, getters) {
       return getters.loadedBlogs.slice(0, 3);
     },
+    
     /* Ovaj getter omgucava da se po id blog moze otvarati tj. da je sadrzaj svudje razlicit */
     loadedBlog(state) {
       return (blogId) => {
         return state.loadBlogs.find((blog) => {
           return blog.id === blogId;
+        });
+      };
+    },
+    loadedDog(state) {
+      return (dogId) => {
+        return state.loadDogs.find((dog) => {
+          return dog.id === dogId;
         });
       };
     },

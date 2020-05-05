@@ -2,11 +2,14 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Blog from "@/components/Blog/blog.vue";
+import Dog from "@/components/Dog/dog.vue";
 import Blogs from "@/components/Blog/blogs.vue";
+import DogsAll from "@/components/Dog/dogsAll.vue";
 import BlogsAll from "@/components/Blog/blogsAll.vue";
-import CreateBlog from '@/components/Blog/CreateBlogs.vue';
-import Dashboard from '@/views/Dashboard.vue';
-import authGuard from './authGuard'
+import CreateBlog from "@/components/Blog/CreateBlogs.vue";
+import CreateDog from "@/components/Dog/CreateDog.vue";
+import Dashboard from "@/views/Dashboard.vue";
+import authGuard from "./authGuard";
 Vue.use(VueRouter);
 
 const routes = [
@@ -26,23 +29,27 @@ const routes = [
   },
   {
     path: "/edit",
-    name: "About",
+    name: "Edit",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "@/components/Blog/Edit/EditBlogdialog.vue"),
+    component: () => import("@/components/Blog/Edit/EditBlogdialog.vue"),
   },
   {
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
-    beforeEnter:authGuard
+    beforeEnter: authGuard,
   },
   {
     path: "/blogs",
     name: "Blogs",
     component: Blogs,
+  },
+  {
+    path: "/dogsAll",
+    name: "Dogs All",
+    component: DogsAll,
   },
   {
     path: "/blogsAll",
@@ -53,13 +60,26 @@ const routes = [
     path: "/blog/new",
     name: "Create Blogs",
     component: CreateBlog,
-    beforeEnter:authGuard
+    beforeEnter: authGuard,
+  },
+  {
+    path: "/dog/new",
+    name: "Create Dog",
+    component: CreateDog,
+    beforeEnter: authGuard,
   },
   {
     path: "/blogs/:id",
     name: "Blog",
-    props:true,
+    props: true,
     component: Blog,
+  },
+
+  {
+    path: "/dogs/:id",
+    name: "Dog",
+    props: true,
+    component: Dog,
   },
 
   {
