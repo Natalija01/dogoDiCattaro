@@ -1,9 +1,17 @@
 {
-    "news":[
-        {
-        "id":"afjafha22", 
-        "imgUrl":"puppy.jpg", 
-        "title":"Proba", 
-        "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus sit amet turpis non ornare. Quisque turpis neque, dapibus eget sem sit amet, euismod ullamcorper nunc. Vestibulum pellentesque nunc id pellentesque maximus. Etiam non maximus sapien. Nunc placerat augue molestie sapien venenatis lobortis. Phasellus a euismod ante, ut semper velit. Suspendisse pulvinar facilisis venenatis. Nullam a suscipit elit. Aenean nunc erat, imperdiet vitae ultricies interdum, mattis nec justo. Vivamus vestibulum erat dolor, at scelerisque nisl consectetur eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer et tristique nisi. Morbi sed vulputate lectus. Quisque semper turpis turpis, vel pharetra urna ullamcorper quis. Suspendisse consequat lorem dapibus ullamcorper lacinia. Donec leo nibh, condimentum et elit quis, commodo accumsan sapien. Cras vel vestibulum lectus. Curabitur congue, turpis ut feugiat mattis, velit enim euismod felis, quis eleifend metus enim eget massa. Quisque suscipit, justo ac tristique convallis, urna leo pellentesque dolor, ac pharetra mi nibh et ligula. Suspendisse aliquet molestie dolor in laoreet. Etiam aliquet egestas ipsum, eu ultrices diam maximus nec. Integer sed ligula viverra, suscipit tellus vel, feugiat elit. Fusce malesuada consectetur ultrices."}
-]
+  "dog": [
+    {
+      "dogID": "afjafha22",
+      "name": "Valhala",
+      "callName": "Vali",
+      "born": "13/03/2019",
+      "fatherName": "Father",
+      "motherName": "Mother",
+      "awards": [],
+      "genre":"female",
+      "imagesUrl":[],
+
+
+    }
+  ]
 }

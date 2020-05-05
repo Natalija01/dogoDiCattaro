@@ -10,11 +10,17 @@ export const store = new Vuex.Store({
     user: null,
     loading: false,
     error: null,
+    loadDogs:[]
   },
 
   mutations: {
+    /* Blogs */
     setLoadedBlog(state, payload) {
       state.loadBlogs = payload;
+    },
+    /* DOGS */
+    setLoadedDogs(state, payload){
+      state.loadDogs = payload;
     },
     /* Dodavanje novih blogova u state  */
     createBlog(state, payload) {
@@ -31,6 +37,21 @@ export const store = new Vuex.Store({
     },
     clearError(state) {
       state.error = null;
+    },
+
+    updateBlog(state, payload) {
+      const blog = state.loadBlogs.find((blog) => {
+        return blog.id === payload.id;
+      });
+      if (payload.title) {
+        blog.title = payload.title;
+      }
+      if (payload.description) {
+        blog.description = payload.description;
+      }
+      if (payload.date) {
+        blog.date = payload.date;
+      }
     },
   },
   actions: {
@@ -56,6 +77,38 @@ export const store = new Vuex.Store({
           }
           commit("setLoading", false);
           commit("setLoadedBlog", blogs);
+        })
+        .catch((error) => {
+          console.log(error);
+          commit("setLoading", true);
+        });
+    },
+    //Uzimanje pasa iz firebase baze
+
+    loadDogs({ commit }) {
+      commit("setLoading", true);
+      firebase
+        .database()
+        .ref("dogs")
+        .once("value")
+        .then((data) => {
+          const dogs = [];
+          const obj = data.val();
+          for (let key in obj) {
+            dogs.push({
+              id: key,
+              name: obj[key].name,
+              callName: obj[key].callName,
+              born: obj[key].born,
+              fatherName: obj[key].fatherName,
+              motherName: obj[key].motherName,
+              awards: obj[key].awards,
+              genre: obj[key].genre,
+              imageUrls: obj[key].imageUrls
+            });
+          }
+          commit("setLoading", false);
+          commit("setLoadedBlog", dogs);
         })
         .catch((error) => {
           console.log(error);
@@ -118,6 +171,34 @@ export const store = new Vuex.Store({
         .catch((error) => {
           console.log(error);
         });
+    },
+
+    updateBlogData({ commit }, payload) {
+      commit("setLoading", true);
+      const updateObj = {};
+      if (payload.title) {
+        updateObj.title = payload.title;
+      }
+      if (payload.description) {
+        updateObj.description = payload.description;
+      }
+      if (payload.date) {
+        updateObj.date = payload.date;
+      }
+      firebase
+        .database()
+        .ref("blogs")
+        .child(payload.id)
+        .update(updateObj)
+
+        .then(() => {
+          commit("setLoading", false);
+          commit('updateBlog', payload)
+        })
+        .catch((error)=>{
+          console.log(error)
+          commit("setLoading", false);
+        })
     },
 
     signUserIn({ commit }, payload) {

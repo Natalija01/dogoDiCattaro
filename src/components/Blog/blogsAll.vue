@@ -16,9 +16,7 @@
     <div class="row" v-if="!loading">
       <div class="col-md-4" v-for="blog in blogs" :key="blog.id">
         <div class="card " style="width: 18rem; ">
-          <template v-if="user">
-            <edit-Blog-dialog> </edit-Blog-dialog>
-          </template>
+          
           <img
             :src="blog.imageUrl"
             class="d-block w-100"
@@ -60,7 +58,7 @@ export default {
       return this.$store.getters.loadedBlogs;
     },
     user() {
-      return this.$store.getters.user;
+      return this.$store.getters.user !==null && this.$store.getters.user !== undefined;
     },
     loading() {
       return this.$store.getters.loading;
