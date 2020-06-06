@@ -76,7 +76,7 @@ const routes = [
   },
 
   {
-    path: "/dog/:id", // route path
+    path: "/dogs/:id", // route path
     props: true, //enabled props
     name: "dog", // route name
     component: Dog,

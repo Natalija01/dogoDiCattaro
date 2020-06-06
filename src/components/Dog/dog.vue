@@ -12,12 +12,19 @@
         ></v-progress-circular>
       </v-flex>
     </v-layout>
-
-    <div class="container">
+    <div class="container-fluid noGutter">
+      <v-parallax height="300" width="100%" :src="dog.imageUrl"></v-parallax>
+    </div>
+    
+    
+    <div class="container" >
       <h2>{{ dog.name }}</h2>
       <hr class="line text-left" style="margin-bottom:20px; margin-top:-5px" />
-
-      <div class="row"></div>
+       
+      <div class="row">
+        
+        <div class="col-12">{{ dog.name }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -28,9 +35,8 @@ export default {
   components: {},
   computed: {
     dog() {
-      return this.$store.getters.loadDog(this.id);
+      return this.$store.getters.loadedDog(this.id);
     },
-
     user() {
       return (
         this.$store.getters.user !== null &&
