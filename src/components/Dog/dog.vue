@@ -1,14 +1,23 @@
 <template>
   <!--Mora da se odradi ovo kako treba i da se doda edit dugme-->
   <div>
-   
+    <v-layout class="mt-5">
+      <v-flex xs12 class="text-xs-center">
+        <v-progress-circular
+          indeterminate
+          class="primary--text"
+          :width="7"
+          :size="70"
+          v-if="loading"
+        ></v-progress-circular>
+      </v-flex>
+    </v-layout>
+
     <div class="container">
       <h2>{{ dog.name }}</h2>
       <hr class="line text-left" style="margin-bottom:20px; margin-top:-5px" />
-      
-      <div class="row">
-       
-      </div>
+
+      <div class="row"></div>
     </div>
   </div>
 </template>
@@ -19,8 +28,9 @@ export default {
   components: {},
   computed: {
     dog() {
-      return this.$store.getters.loadedDog(this.id);
+      return this.$store.getters.loadDog(this.id);
     },
+
     user() {
       return (
         this.$store.getters.user !== null &&

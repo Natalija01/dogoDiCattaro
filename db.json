@@ -8,7 +8,7 @@
       "fatherName": "Father",
       "motherName": "Mother",
       "awards": [],
-      "genre":"female",
+      "genre":["female","male0"],
       "imagesUrl":[],
 
 

@@ -39,5 +39,6 @@ new Vue({
     });
     this.$store.dispatch("loadBlog");
     this.$store.dispatch("loadDog");
+   
   },
 }).$mount("#app");

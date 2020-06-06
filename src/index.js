@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import Blog from "@/components/Blog/blog.vue";
+//import Blog from "@/components/Blog/blog.vue";
+import Dog from "@/components/Blog/dog.vue";
 import Blogs from "@/components/Blog/blogs.vue";
 import CreateBlog from "@/components/Blog/CreateBlogs.vue";
 Vue.use(VueRouter);
@@ -31,12 +32,16 @@ const routes = [
     name: "Create Blogs",
     component: CreateBlog,
   },
-  {
+  /*{
     path: "/blogs/:id",
     name: "Blog",
     component: Blog,
+  },*/
+  {
+    path: "/dogs/:id",
+    name: "Dog",
+    component: Dog,
   },
-
   {
     path: "/female",
     name: "Female",
