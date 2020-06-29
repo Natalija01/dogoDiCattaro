@@ -38,7 +38,7 @@
           </li>
           <li class="nav-item dropdown ">
             <router-link
-              to="#"
+              to="/DogsAll"
               class="nav-link dropdown-toggle "
               href="#"
               id="navbarDropdownMenuLink"

@@ -20,9 +20,7 @@ export const store = new Vuex.Store({
     setLoadedDog(state, payload) {
       state.loadDogs = payload;
     },
-    setLoadedDogs(state, payload) {
-      state.loadDogs = payload;
-    },
+
     /* Dodavanje novih blogova u state  */
     createBlog(state, payload) {
       state.loadBlogs.push(payload);
@@ -66,19 +64,16 @@ export const store = new Vuex.Store({
         .database()
         .ref("blogs")
         .once("value")
-        .then((data) => {
-          const blogs = [];
-          const obj = data.val();
-          for (let key in obj) {
-            blogs.push({
-              id: key,
-              title: obj[key].title,
-              description: obj[key].description,
-              imageUrl: obj[key].imageUrl,
-              date: obj[key].date,
-              creatorId: obj[key].creatorId,
-            });
-          }
+        .then(function(snapshot) {
+          var blogs = [];
+
+          snapshot.forEach((childSnapshot) => {
+            var data = childSnapshot.val();
+            data["id"] = childSnapshot.key;
+
+            blogs.push(data);
+          });
+
           commit("setLoading", false);
           commit("setLoadedBlog", blogs);
         })
@@ -87,8 +82,21 @@ export const store = new Vuex.Store({
           commit("setLoading", true);
         });
     },
+
+    /*var query = firebase.database().ref("users").orderByKey();
+query.on("value", function(snapshot) {
+  snapshot.forEach(function(childSnapshot) {
+    // key will be "ada" the first time and "alan" the second time
+    var key = childSnapshot.key;
+    // childData will be the actual contents of the child
+    var childData = childSnapshot.val();
+  });
+}, function(error) {
+  console.error(error);
+}); */
     loadDog({ commit }) {
       commit("setLoading", true);
+
       firebase
         .database()
         .ref("dogs")
@@ -96,37 +104,14 @@ export const store = new Vuex.Store({
         .then(function(snapshot) {
           var dogs = [];
 
-          snapshot.forEach((dog) => {
-            dogs.push(dog.val());
+          snapshot.forEach((childSnapshot) => {
+            var data = childSnapshot.val();
+            data.id = childSnapshot.key;
+
+            dogs.push(data);
+            console.log("posle pusha", data);
           });
 
-          commit("setLoading", false);
-          commit("setLoadedDog", dogs);
-        })
-        .catch((error) => {
-          console.log(error);
-          commit("setLoading", true);
-        });
-    },
-
-    //fetch dog by id
-    fetchDog({ commit }) {
-      commit("setLoading", true);
-      firebase
-        .database()
-        .ref("dogs")
-        .once("value")
-        .then((data) => {
-          const dogs = [];
-          const obj = data.val();
-
-          for (let key in obj) {
-            dogs.push({
-              id: key,
-              name: obj[key].name,
-              imageUrl: obj[key].imageUrl,
-            });
-          }
           commit("setLoading", false);
           commit("setLoadedDog", dogs);
         })
@@ -195,7 +180,9 @@ export const store = new Vuex.Store({
     createDog({ commit }, payload) {
       const dog = {
         name: payload.name,
+        award: payload.award,
       };
+      
       let imageUrl;
       let key;
       firebase
@@ -336,6 +323,7 @@ export const store = new Vuex.Store({
         });
       };
     },
+
     user(state) {
       return state.user;
     },

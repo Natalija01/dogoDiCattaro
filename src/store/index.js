@@ -11,6 +11,7 @@ export const store = new Vuex.Store({
     loading: false,
     error: null,
     loadDogs: [],
+    tmpImages: [],
   },
 
   mutations: {
@@ -33,6 +34,9 @@ export const store = new Vuex.Store({
     },
     setLoading(state, payload) {
       state.loading = payload;
+    },
+    setTempImages(state, payload) {
+      state.tmpImages.push(payload);
     },
     setError(state, payload) {
       state.error = payload;
@@ -64,20 +68,16 @@ export const store = new Vuex.Store({
         .database()
         .ref("blogs")
         .once("value")
-        .then((data) => {
-          const blogs = [];
-          const obj = data.val();
-          for (let key in obj) {
-            blogs.push({
-              id: key,
-              title: obj[key].title,
-              description: obj[key].description,
-              imageUrl: obj[key].imageUrl,
-              date: obj[key].date,
-              creatorId: obj[key].creatorId,
-            });
-            console.log("posle pusha blog", data);
-          }
+        .then(function(snapshot) {
+          var blogs = [];
+
+          snapshot.forEach((childSnapshot) => {
+            var data = childSnapshot.val();
+            data["id"] = childSnapshot.key;
+
+            blogs.push(data);
+          });
+
           commit("setLoading", false);
           commit("setLoadedBlog", blogs);
         })
@@ -110,7 +110,7 @@ query.on("value", function(snapshot) {
 
           snapshot.forEach((childSnapshot) => {
             var data = childSnapshot.val();
-            data["id"] = childSnapshot.key;
+            data.id = childSnapshot.key;
 
             dogs.push(data);
             console.log("posle pusha", data);
@@ -118,33 +118,6 @@ query.on("value", function(snapshot) {
 
           commit("setLoading", false);
           commit("setLoadedDog", dogs);
-        })
-        .catch((error) => {
-          console.log(error);
-          commit("setLoading", true);
-        });
-    },
-
-    //fetch dog by id
-    fetchDog({ commit }) {
-      commit("setLoading", true);
-      firebase
-        .database()
-        .ref("dogs")
-        .once("value")
-        .then((data) => {
-          const dogs = [];
-          const obj = data.val();
-          for (let key in obj) {
-            dogs.push({
-              id: key,
-              name: obj[key].name,
-              imageUrl: obj[key].imageUrl,
-            });
-            console.log("posle pusha blog", data);
-          }
-          commit("setLoading", false);
-          commit("setLoadedBlog", dogs);
         })
         .catch((error) => {
           console.log(error);
@@ -208,53 +181,68 @@ query.on("value", function(snapshot) {
           console.log(error);
         });
     },
+    getImageLinks({ commit }, payload) {
+      const imgFile = payload.image;
+      const ext = imgFile.name.slice(imgFile.name.lastIndexOf("."));
+      commit("setLoading", true);
+      if (payload.images.length > 1) {
+        payload.images.forEach((item) => {
+          const fileName = item.name.slice(0, item.name.lastIndexOf("."));
+          const ext = item.name.slice(item.name.lastIndexOf("."));
+          return firebase
+            .storage()
+            .ref("dogs" + "/" + fileName + ext)
+            .put(item)
+            .then(() => {
+              var urlImage = "";
+              firebase
+                .storage()
+                .ref("dogs" + "/" + fileName + ext)
+                .getDownloadURL()
+                .then((downloadURL) => {
+                  urlImage = downloadURL;
+                  commit("setTempImages", urlImage);
+                  commit("setLoading", false);
+                });
+            });
+        });
+      } else {
+        return firebase
+          .storage()
+          .ref("dogs" + "/name1" + ext)
+          .put(imgFile)
+          .then(() => {
+            // console.log(fileData);
+            var urlImage = "";
+            firebase
+              .storage()
+              .ref("dogs" + "/name1" + ext)
+              .getDownloadURL()
+              .then((downloadURL) => {
+                urlImage = downloadURL;
+                commit("setTempImages", urlImage);
+                commit("setLoading", false);
+              });
+          });
+      }
+    },
     createDog({ commit }, payload) {
-      const dog = {
-        name: payload.name,
-      };
-      let imageUrl;
-      let key;
+      // const dog = {
+      //   name: payload.name,
+      //   award: payload.award,
+      // };
+      commit("setLoading", true);
+      // let key;
       firebase
         .database()
         .ref("dogs")
-        .push(dog)
+        .push(payload)
         .then((data) => {
-          key = data.key;
+          console.log(data);
+          // key = data.key;
+          commit("setLoading", false);
 
-          return key;
-        })
-        .then((key) => {
-          const filename = payload.image.name;
-          const ext = filename.slice(filename.lastIndexOf("."));
-          return firebase
-            .storage()
-            .ref("dogs/" + key + "." + ext)
-            .put(payload.image);
-        })
-        .then((filedata) => {
-          let imagePath = filedata.metadata.fullPath;
-          // creating ref to our image file and get the url
-          return firebase
-            .storage()
-            .ref()
-            .child(imagePath)
-            .getDownloadURL();
-        })
-        .then((url) => {
-          imageUrl = url;
-          return firebase
-            .database()
-            .ref("dogs")
-            .child(key)
-            .update({ imageUrl: imageUrl });
-        })
-
-        .then(() => {
-          commit("createBlog", {
-            ...dog,
-            imageUrl: imageUrl,
-            id: key,
-          });
+          // return key;
         })
         .catch((error) => {
           console.log(error);
@@ -323,6 +311,9 @@ query.on("value", function(snapshot) {
   },
   modules: {},
   getters: {
+    getTempSlika(state) {
+      return state.tmpImages;
+    },
     /* Ovaj getter uzima state u ovom slucaju loadBlogs i uporedjuje datume */
     loadedBlogs(state) {
       return state.loadBlogs.sort((blogA, blogB) => {
@@ -351,6 +342,12 @@ query.on("value", function(snapshot) {
           return dog.id === dogId;
         });
       };
+    },
+    zenskiPol: (state) => {
+      return state.loadDogs.filter((dog) => dog.genre);
+    },
+    muskiPol: (state) => {
+      return state.loadDogs.filter((dog) => !dog.genre);
     },
 
     user(state) {
