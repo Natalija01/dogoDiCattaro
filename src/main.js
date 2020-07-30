@@ -13,6 +13,9 @@ import "./assets/style.scss";
 import DateFilter from "@/filters/date.js";
 import alertComp from "@/components/Share/alert.vue";
 import EditBlogdialog from "@/components/Blog/Edit/EditBlogdialog.vue";
+import Vuelidate from 'vuelidate'
+
+Vue.use(Vuelidate)
 
 Vue.config.productionTip = false;
 Vue.filter("date", DateFilter);
