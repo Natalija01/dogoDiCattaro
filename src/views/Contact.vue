@@ -41,14 +41,22 @@
             <br />
             <br />
             <h3>Check us on:</h3>
-            <img
-              src="facebook.png"
-              width="40px"
-              alt=""
-              style="margin-right:10px"
-            />
-
-            <img src="instagram-sketched.png" width="40px" alt="" />
+            <a
+              href="https://sr-rs.facebook.com/Dogo-Di-Cattaro-992178320795339/"
+              target="_blank"
+            >
+              <img
+                src="facebook.png"
+                width="40px"
+                alt=""
+                style="margin-right:10px"
+            /></a>
+            <a
+              href="https://www.instagram.com/dogodicattaro/?hl=sr"
+              target="_blank"
+            >
+              <img src="instagram-sketched.png" width="40px" alt=""
+            /></a>
             <br />
             <br />
             <br />
@@ -56,105 +64,116 @@
         </div>
         <div class="col-md-9">
           <form @submit.prevent="submit">
-          <div class="contact-form">
-            <div
-              class="form-group"
-              :class="{ 'form-group--error': $v.firstName.$error }"
-            >
-              <label class="control-label col-sm-2" for="fname"
-                >First Name</label
+            <div class="contact-form">
+              <div
+                class="form-group"
+                :class="{ 'form-group--error': $v.firstName.$error }"
               >
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="fname"
-                  placeholder="Enter First Name"
-                  name="fname"
-                  v-model.trim="$v.firstName.$model"
-                />
-              </div>
-              <template v-if="$v.firstName.$error">
-                <div class="error" v-if="!$v.firstName.required">
-                  Field is required
+                <label class="control-label col-sm-2" for="fname"
+                  >First Name</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="fname"
+                    placeholder="Enter First Name"
+                    name="fname"
+                    v-model.trim="$v.firstName.$model"
+                  />
                 </div>
-                <div class="error" v-if="!$v.firstName.minLength">
-                  Name must have at least
-                  {{ $v.firstName.$params.minLength.min }} letters.
-                </div></template
-              >
-            </div>
-            <div
-              class="form-group"
-              :class="{ 'form-group--error': $v.lastName.$error }"
-            >
-              <label class="control-label col-sm-2" for="lname"
-                >Last Name</label
-              >
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="lname"
-                  placeholder="Enter Last Name"
-                  name="lname"
-                  v-model.trim="$v.lastName.$model"
-                />
+                <template v-if="$v.firstName.$error">
+                  <div class="error" v-if="!$v.firstName.required">
+                    Field is required
+                  </div>
+                  <div class="error" v-if="!$v.firstName.minLength">
+                    Name must have at least
+                    {{ $v.firstName.$params.minLength.min }} letters.
+                  </div></template
+                >
               </div>
-              <template v-if="$v.lastName.$error">
-                <div class="error" v-if="!$v.lastName.required">
-                  Field is required
+              <div
+                class="form-group"
+                :class="{ 'form-group--error': $v.lastName.$error }"
+              >
+                <label class="control-label col-sm-2" for="lname"
+                  >Last Name</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lname"
+                    placeholder="Enter Last Name"
+                    name="lname"
+                    v-model.trim="$v.lastName.$model"
+                  />
                 </div>
-                <div class="error" v-if="!$v.lastName.minLength">
-                  Name must have at least
-                  {{ $v.lastName.$params.minLength.min }} letters.
-                </div></template
-              >
-            </div>
-            <div
-              class="form-group"
-              :class="{ 'form-group--error': $v.email.$error }"
-            >
-              <label class="control-label col-sm-2" for="email">Email</label>
-              <div class="col-sm-10">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  placeholder="Enter email"
-                  name="email"
-                  v-model.trim="$v.email.$model"
-                />
+                <template v-if="$v.lastName.$error">
+                  <div class="error" v-if="!$v.lastName.required">
+                    Field is required
+                  </div>
+                  <div class="error" v-if="!$v.lastName.minLength">
+                    Name must have at least
+                    {{ $v.lastName.$params.minLength.min }} letters.
+                  </div></template
+                >
               </div>
-              <template v-if="$v.email.$error">
-                <div class="error" v-if="!$v.email.required">
-                  Field is required
+              <div
+                class="form-group"
+                :class="{ 'form-group--error': $v.email.$error }"
+              >
+                <label class="control-label col-sm-2" for="email">Email</label>
+                <div class="col-sm-10">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="Enter email"
+                    name="email"
+                    v-model.trim="$v.email.$model"
+                  />
                 </div>
-              </template>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-sm-2" for="comment"
-                >Comment</label
-              >
-              <div class="col-sm-10">
-                <textarea class="form-control" rows="5" id="comment"></textarea>
+                <template v-if="$v.email.$error">
+                  <div class="error" v-if="!$v.email.required">
+                    Field is required
+                  </div>
+                </template>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="comment"
+                  >Comment</label
+                >
+                <div class="col-sm-10">
+                  <textarea
+                    class="form-control"
+                    rows="5"
+                    id="comment"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button
+                    type="submit"
+                    class="btn btn-default"
+                    :disabled="submitStatus === 'PENDING'"
+                  >
+                    Submit
+                  </button>
+                  <p class="typo__p" v-if="submitStatus === 'OK'">
+                    Thanks for your submission!
+                  </p>
+                  <p class="typo__p" v-if="submitStatus === 'ERROR'">
+                    Please fill the form correctly.
+                  </p>
+                  <p class="typo__p" v-if="submitStatus === 'PENDING'">
+                    Sending...
+                  </p>
+                </div>
               </div>
             </div>
-            <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default" :disabled="submitStatus === 'PENDING'">Submit</button>
-                <p class="typo__p" v-if="submitStatus === 'OK'">
-                Thanks for your submission!
-              </p>
-              <p class="typo__p" v-if="submitStatus === 'ERROR'">
-                Please fill the form correctly.
-              </p>
-              <p class="typo__p" v-if="submitStatus === 'PENDING'">
-                Sending...
-              </p>
-              </div>
-            </div>
-          </div></form>
+          </form>
         </div>
       </div>
     </div>
@@ -169,6 +188,7 @@ export default {
       lastName: "",
       email: "",
       submitStatus: null,
+
     };
   },
   validations: {
@@ -185,10 +205,13 @@ export default {
       email,
     },
   },
-  methods: {
+  
     methods: {
       submit() {
-        console.log("submit!");
+       var obj = {firstName: this.$v.firstName.$model, lastName: this.$v.lastName.$model, email: this.$v.email.$model};
+       console.log(obj);
+       console.log("submit!");
+      
         this.$v.$touch();
         if (this.$v.$invalid) {
           this.submitStatus = "ERROR";
@@ -200,8 +223,9 @@ export default {
           }, 500);
         }
       },
+
     },
-  },
+ 
 };
 </script>
 
@@ -242,5 +266,9 @@ export default {
 }
 .contact-form button:focus {
   box-shadow: none;
+}
+.error {
+  color: red;
+  font-size: 12px;
 }
 </style>
