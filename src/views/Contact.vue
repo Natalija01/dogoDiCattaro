@@ -1,4 +1,5 @@
 <template>
+
   <div class="contactforma">
     <!--MAPS -->
     <div class="container-fluid">
@@ -176,10 +177,14 @@
           </form>
         </div>
       </div>
+    
     </div>
-  </div>
+      
+  </div> 
+  
 </template>
 <script>
+//import Footer from '@/views/Footer.vue';
 import { required, minLength, email } from "vuelidate/lib/validators";
 export default {
   data() {
@@ -205,7 +210,9 @@ export default {
       email,
     },
   },
-  
+  // components: {
+  //   Footer,
+  // },
     methods: {
       submit() {
        var obj = {firstName: this.$v.firstName.$model, lastName: this.$v.lastName.$model, email: this.$v.email.$model};

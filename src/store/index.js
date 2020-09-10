@@ -349,6 +349,15 @@ query.on("value", function(snapshot) {
     muskiPol: (state) => {
       return state.loadDogs.filter((dog) => !dog.genre);
     },
+    alive: (state) => {
+      return state.loadDogs.filter((dog) => !dog.alive);
+    },
+    isAlive: (state) => {
+      return state.loadDogs.filter((dog) => dog.alive);
+    },
+    dogForSale: (state) => {
+      return state.loadDogs.filter((dog) => dog.dogForSale);
+    },
 
     user(state) {
       return state.user;

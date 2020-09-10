@@ -2,8 +2,14 @@
   <div class="home">
     <heroSlider />
     <aboutDogo />
-
-    <v-parallax src="puppy.jpg"> </v-parallax>
+<v-parallax
+        height="7"
+        src="https://i.pinimg.com/originals/32/8a/6c/328a6cf37271127972b7730494df7f04.jpg"
+      ></v-parallax>
+    <v-parallax src="puppies.jpg"> </v-parallax><v-parallax
+        height="7"
+        src="https://i.pinimg.com/originals/32/8a/6c/328a6cf37271127972b7730494df7f04.jpg"
+      ></v-parallax>
     <blogs></blogs>
   </div>
 </template>

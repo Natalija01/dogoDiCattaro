@@ -2,6 +2,10 @@
   <div>
     <v-app>
       <v-card>
+        <v-parallax
+        height="7"
+        src="https://i.pinimg.com/originals/32/8a/6c/328a6cf37271127972b7730494df7f04.jpg"
+      ></v-parallax>
         <v-carousel height="100vh" class="overlay">
           <v-carousel-item
             v-for="(item, i) in items"
@@ -11,8 +15,14 @@
             transition="fade-transition"
           ></v-carousel-item>
         </v-carousel>
+        
       </v-card>
+      
     </v-app>
+    <v-parallax
+        height="7"
+        src="https://i.pinimg.com/originals/32/8a/6c/328a6cf37271127972b7730494df7f04.jpg"
+      ></v-parallax>
   </div>
 </template>
 
@@ -22,10 +32,10 @@ export default {
     return {
       items: [
         {
-          src: "heroSlika.jpg",
+          src: "web01.jpg",
         },
         {
-          src: "heroImage.jpg",
+          src: "web02.jpg"
         },
       ],
     };

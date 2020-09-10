@@ -88,6 +88,16 @@ const routes = [
     component: () => import("../views/Female.vue"),
   },
   {
+    path: "/ancestors",
+    name: "Ancestors",
+    component: () => import("../views/Ancestors.vue"),
+  },
+  {
+    path: "/dogForSale",
+    name: "dogForSale",
+    component: () => import("../views/dogForSale.vue"),
+  },
+  {
     path: "/SignUp",
     name: "SignUp",
     component: () => import("@/components/user/SignUp.vue"),

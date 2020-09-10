@@ -58,7 +58,7 @@
 export default {
   computed: {
     dogs() {
-      return this.$store.getters.zenskiPol ;
+      return this.$store.getters.alive;
     },
     user() {
       return (

@@ -1,7 +1,7 @@
 <template>
   <!-- Meetups.vue -->
   <div class="container">
-    <v-layout class="mt-5">
+    <v-layout >
       <v-flex xs12 class="text-xs-center">
         <v-progress-circular
           indeterminate
@@ -12,16 +12,26 @@
         ></v-progress-circular>
       </v-flex>
     </v-layout>
+    
+    <div class="row">
+      <div class="col">
+        <h2 class="mb-3">Our dogs</h2>
+        <hr
+          class="line text-center"
+          style="margin-bottom:20px; margin-top:-10px"
+        />
+      </div>
+    </div>
 
     <div class="row" v-if="!loading">
       <div class="col-md-4" v-for="dog in dogs" :key="dog.id">
         <!-- {{dog}} -->
-        <div class="card " style="width: 18rem; " v-if="dog">
+        <div class="card " v-if="dog">
           <img
             :src="dog.images[0]"
             class="d-block w-100"
             width="100%"
-            height="200px"
+            height="300px"
             alt="..."
           />
           <div class="card-body">
@@ -81,4 +91,8 @@ hr.line {
   width: 100px;
   margin: 0px auto;
 }
+h2 {
+  color: rgb(182, 178, 175);
+}
+
 </style>

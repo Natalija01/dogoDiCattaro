@@ -24,6 +24,17 @@
             <v-layout row>
               <v-flex xs12 sm6 offset-sm3>
                 <v-text-field
+                  name="callname"
+                  label="Naziv psa"
+                  id="callname"
+                  v-model="callname"
+                  :rules="['Required']"
+                >
+                </v-text-field> </v-flex
+            ></v-layout>
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <v-text-field
                   name="imeMajke"
                   label="Ime majke"
                   id="mother"
@@ -43,6 +54,17 @@
                 >
                 </v-text-field> </v-flex
             ></v-layout>
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <v-text-field
+                  name="rodjen"
+                  label="Datum rodjenja"
+                  id="born"
+                  v-model="born"
+                  :rules="['Required']"
+                >
+                </v-text-field> </v-flex
+            ></v-layout>
 
             <v-layout row>
               <v-flex xs12 sm6 offset-sm3>
@@ -57,6 +79,41 @@
                   <v-radio label="Muški" :value="false"></v-radio>
                   <v-radio
                     label="Ženski"
+                    :value="true"
+                  ></v-radio> </v-radio-group
+              ></v-flex>
+            </v-layout>
+
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <p style="text-align:left; font-size:16px; font-weight: bold;">
+                  Da li je pas ziv:
+                </p>
+                <v-radio-group
+                  v-model="alive"
+                  :mandatory="false"
+                  @change="uzmiAlive"
+                >
+                  <v-radio label="Nije ziv" :value="false"></v-radio>
+                  <v-radio
+                    label="Ziv"
+                    :value="true"
+                  ></v-radio> </v-radio-group
+              ></v-flex>
+            </v-layout>
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <p style="text-align:left; font-size:16px; font-weight: bold;">
+                  Da li je pas na prodaju:
+                </p>
+                <v-radio-group
+                  v-model="dogForSale"
+                  :mandatory="false"
+                  @change="uzmiDogForSale"
+                >
+                  <v-radio label="Nije na prodaju" :value="false"></v-radio>
+                  <v-radio
+                    label="Na prodaju"
                     :value="true"
                   ></v-radio> </v-radio-group
               ></v-flex>
@@ -130,9 +187,13 @@ export default {
   data() {
     return {
       name: "",
+      callname:"",
       genre: false,
+      alive: false,
+      dogForSale: false,
       mother: "",
       father: "",
+      born:"",
       imageUrl: "",
       images: [],
       awards: [],
@@ -159,10 +220,14 @@ export default {
         //ovdje se store svi podaci koji su u data i salju se u store
 
         name: this.name,
+        callname: this.callname,
         image: this.image,
         genre: this.genre,
+        alive: this.alive,
+        dogForSale:this.dogForSale,
         father: this.father,
         mother: this.mother,
+        born: this.born,
         award: this.awards,
         images: this.$store.getters.getTempSlika,
       };
@@ -181,6 +246,12 @@ export default {
     uzmiPol(event) {
       this.genre = event.target.value;
     },
+    uzmiAlive(event) {
+      this.alive = event.target.value;
+    },
+    uzmiDogForSale(event) {
+      this.dogForSale = event.target.value;
+    },
     onFilePicked(event) {
       const files = event.target.files;
       this.images = files.length > 0 ? files : [];
@@ -198,10 +269,14 @@ export default {
       this.image = files[0];
       const dogData = {
         name: this.name,
+        callname: this.callname,
         image: this.image,
         genre: this.genre,
+        alive: this.alive,
+        dogForSale:this.dogForSale,
         father: this.father,
         mother: this.mother,
+        born: this.born,
         award: this.awards,
         images: this.images,
       };

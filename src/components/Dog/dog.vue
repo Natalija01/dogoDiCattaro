@@ -1,7 +1,7 @@
 <template>
   <!--Mora da se odradi ovo kako treba i da se doda edit dugme-->
   <div v-if="dog">
-    <v-layout class="mt-5">
+    <v-layout>
       <v-flex xs12 class="text-xs-center">
         <v-progress-circular
           indeterminate
@@ -13,7 +13,18 @@
       </v-flex>
     </v-layout>
     <div class="container-fluid noGutter">
-      <v-parallax height="300" width="100%" :src="dog.images[1]"></v-parallax>
+      <v-parallax
+        height="7"
+        src="https://i.pinimg.com/originals/32/8a/6c/328a6cf37271127972b7730494df7f04.jpg"
+      ></v-parallax>
+      <v-parallax
+        height="300"
+        src="https://firebasestorage.googleapis.com/v0/b/dogodicattaro-ccec6.appspot.com/o/all%2Fbannerlogo.png?alt=media&token=fa57bc76-3275-409c-bb08-56b469746e0f"
+      ></v-parallax>
+      <v-parallax
+        height="7"
+        src="https://i.pinimg.com/originals/32/8a/6c/328a6cf37271127972b7730494df7f04.jpg"
+      ></v-parallax>
     </div>
 
     <div class="container">
@@ -22,9 +33,24 @@
 
       <div class="row">
         <!-- /*ovdje mora vfor */ -->
-        <p v-for="(awr, i) in dog.award" :key="i">{{ awr }},</p>
-      </div>
+        <div class="col">
+          <h3 class="mb-3">Awards</h3>
+          <ul>
+            <li v-for="(awr, i) in dog.award" :key="i">{{ awr }}</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3 class="mb-3">About {{ dog.name }}</h3>
+          <ul class="tacke">
+            <li>Born: {{ dog.born }}</li>
 
+            <li>Mother: {{ dog.mother }}</li>
+
+            <li>Father: {{ dog.father }}</li>
+          </ul>
+        </div>
+      </div>
+      <!--
       <v-carousel
         cycle
         height="500"
@@ -33,9 +59,9 @@
       >
         <v-carousel-item v-for="(img, i) in dog.images" :key="i" :src="img">
         </v-carousel-item>
-      </v-carousel>
+      </v-carousel>-->
 
-     <div class="row">
+      <div class="row">
         <gallery
           :images="dog.images"
           :index="index"
@@ -49,7 +75,7 @@
           :style="{
             backgroundImage: 'url(' + image + ')',
             width: '360px',
-            height: '240px'
+            height: '240px',
           }"
         ></div>
       </div>
@@ -62,7 +88,9 @@ import VueGallery from "vue-gallery";
 export default {
   data() {
     return {
-      index: null,}},
+      index: null,
+    };
+  },
   props: ["id"],
   components: { gallery: VueGallery },
   computed: {
@@ -89,4 +117,19 @@ export default {
   background-position: center center;
   border: 1px solid #b9b6b6;
   margin: 5px;
-}</style>
+}
+ul {
+  text-align: left;
+  color: rgb(182, 178, 175);
+}
+.tacke {
+  list-style-type: none;
+}
+h3 {
+  color: rgb(182, 178, 175);
+  text-align: left;
+}
+h2 {
+  color: rgb(182, 178, 175);
+}
+</style>

@@ -2,14 +2,17 @@
   <div id="app">
     <navBar />
     <router-view />
+    
   </div>
 </template>
 
 <script>
 import navBar from "@/components/navBar.vue";
+//import Footer from "@/views/Footer.vue";
 export default {
   components: {
-    navBar
+    navBar,
+    //Footer
   },
   computed: {
     userIsAuthenticated () {

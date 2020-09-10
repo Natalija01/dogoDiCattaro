@@ -59,6 +59,12 @@
               <router-link to="/male" class="dropdown-item" href="#"
                 >Male</router-link
               >
+              <router-link to="/ancestors" class="dropdown-item" href="#"
+                >Ancestors</router-link
+              >
+              <router-link to="/dogForSale" class="dropdown-item" href="#"
+                >Dog for sale</router-link
+              >
             </div>
           </li>
           <li class="nav-item">
