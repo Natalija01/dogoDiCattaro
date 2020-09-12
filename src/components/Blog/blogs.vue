@@ -14,15 +14,15 @@
     </v-layout>
     <div class="row" v-if="!loading">
       <div class="col-md-4" v-for="blog in blogs" :key="blog.id">
-        <div class="card " style="width: 18rem; ">
-          <router-link to="/blogs/1">
+        <div class="card " style="width: 18rem; "  @click="onLoadBlog(blog.id)">
+          
             <img
               :src="blog.imageUrl"
               class="d-block w-100"
               width="100%"
               height="200px"
               alt="..."
-          /></router-link>
+          />
           <div class="card-body">
             <h5 class="card-title">{{ blog.title }}</h5>
             <hr
@@ -31,9 +31,9 @@
             />
             <p class="card-text">
               {{ blog.description | fixDescription }}
-              <router-link to="/blogs/1">
+              
                 <v-icon left right>arrow_forward</v-icon>
-              </router-link>
+              
             </p>
 
             <p class="card-text">
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+
 export default {
   computed: {
     blogs() {
@@ -73,6 +74,9 @@ export default {
       this.$router.push("/blogs/" + id);
     },
   },
+  components:{
+   
+  }
 };
 </script>
 

@@ -80,10 +80,12 @@
         ></div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
+import Footer from "@/components/Footer.vue";
 import VueGallery from "vue-gallery";
 export default {
   data() {
@@ -92,7 +94,7 @@ export default {
     };
   },
   props: ["id"],
-  components: { gallery: VueGallery },
+  components: { gallery: VueGallery, Footer },
   computed: {
     dog() {
       return this.$store.getters.loadedDog(this.id);

@@ -1,5 +1,5 @@
 <template>
-  <!-- Meetups.vue -->
+  <!-- Meetups.vue --><div>
   <div class="container">
     <v-layout class="mt-5">
       <v-flex xs12 class="text-xs-center">
@@ -16,7 +16,6 @@
     <div class="row" v-if="!loading">
       <div class="col-md-4" v-for="blog in blogs" :key="blog.id">
         <div class="card " style="width: 18rem; ">
-          
           <img
             :src="blog.imageUrl"
             class="d-block w-100"
@@ -48,17 +47,23 @@
         </div>
       </div>
     </div>
+     </div>
+    <Footer/>
   </div>
 </template>
 
 <script>
+import Footer from "@/components/Footer.vue";
 export default {
   computed: {
     blogs() {
       return this.$store.getters.loadedBlogs;
     },
     user() {
-      return this.$store.getters.user !==null && this.$store.getters.user !== undefined;
+      return (
+        this.$store.getters.user !== null &&
+        this.$store.getters.user !== undefined
+      );
     },
     loading() {
       return this.$store.getters.loading;
@@ -81,6 +86,9 @@ export default {
       this.$router.push("/blogs/" + id);
     },
   },
+  components:{
+    Footer
+  }
 };
 </script>
 

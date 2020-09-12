@@ -29,7 +29,7 @@
       <div class="row" v-if="!loading">
         <div class="col-md-4" v-for="dog in dogs" :key="dog.id">
           <!-- {{dog}} -->
-          <div class="card " style="width: 18rem; " v-if="dog">
+          <div class="card " style="width: 18rem; " v-if="dog" @click="onLoadDogs(dog.id)">
             <img
               @click="onLoadDogs(dog.id)"
               :src="dog.images[0]"
@@ -38,8 +38,9 @@
               height="200px"
               alt="..."
             />
+            
             <div class="card-body">
-              <h5 class="card-title" @click="onLoadDogs(dog.id)">
+              <h5 class="card-title" >
                 {{ dog.name }}
               </h5>
               <hr
@@ -51,10 +52,12 @@
         </div>
       </div>
     </div>
+    <Footer/>
   </div>
 </template>
 
 <script>
+import Footer from "@/components/Footer.vue";
 export default {
   computed: {
     dogs() {
@@ -75,6 +78,9 @@ export default {
       this.$router.push("/dogs/" + id);
     },
   },
+  components:{
+    Footer
+  }
 };
 </script>
 

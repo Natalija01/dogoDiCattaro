@@ -15,15 +15,17 @@
       ></v-parallax>
     </div>
     <aboutDogo/>
-    
+    <Footer/>
   </div>
 </template>
 
 <script>
+import Footer from "@/components/Footer.vue";
 import aboutDogo from '@/components/aboutDogo.vue';
 export default {
   components: {
-    aboutDogo
+    aboutDogo,
+    Footer
   },
 };
 </script>

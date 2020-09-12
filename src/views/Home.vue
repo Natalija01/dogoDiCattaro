@@ -11,6 +11,7 @@
         src="https://i.pinimg.com/originals/32/8a/6c/328a6cf37271127972b7730494df7f04.jpg"
       ></v-parallax>
     <blogs></blogs>
+    <Footer/>
   </div>
 </template>
 
@@ -19,11 +20,14 @@
 import heroSlider from "@/components/heroSlider.vue";
 import aboutDogo from "@/components/aboutDogo.vue";
 import blogs from "@/components/Blog/blogs.vue";
+import Footer from "@/components/Footer.vue";
 export default {
   components: {
+    
     heroSlider,
     aboutDogo,
-    blogs
+    blogs,
+    Footer
   }
 };
 </script>

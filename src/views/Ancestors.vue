@@ -29,15 +29,29 @@
       <div class="row" v-if="!loading">
         <div class="col-md-4" v-for="dog in dogs" :key="dog.id">
           <!-- {{dog}} -->
-          <div class="card " style="width: 18rem; " v-if="dog">
+          <div class="card " style="width: 18rem; " v-if="dog" @click="onLoadDogs(dog.id)">
+            
             <img
               @click="onLoadDogs(dog.id)"
               :src="dog.images[0]"
-              class="d-block w-100"
+              class="d-block w-100 grey"
               width="100%"
               height="200px"
               alt="..."
-            />
+            /> <div
+            class="card-img-overlay"
+            style=" display: flex;
+  flex-direction: column;"
+          ><div
+              class="card-body justify-content-between"
+              style="padding-top: 0px;"  
+            >
+              <a
+                
+                class="btn btn-primary pt-1 pb-1 pl-3 pr-3 float-right"
+                style="color:#333333; border-radius: 2px; border:none; font-size: 12px; background-color: #f1bf7f"
+                >In Memoriam</a
+              ></div></div>
             <div class="card-body">
               <h5 class="card-title" @click="onLoadDogs(dog.id)">
                 {{ dog.name }}
@@ -51,10 +65,12 @@
         </div>
       </div>
     </div>
+    <Footer/>
   </div>
 </template>
 
 <script>
+import Footer from "@/components/Footer.vue";
 export default {
   computed: {
     dogs() {
@@ -75,7 +91,15 @@ export default {
       this.$router.push("/dogs/" + id);
     },
   },
+  components:{
+    Footer
+  }
 };
 </script>
 
-<style></style>
+<style>
+.grey{
+   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+}
+</style>
