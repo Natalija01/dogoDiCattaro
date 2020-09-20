@@ -27,7 +27,7 @@
       <div class="row" v-if="!loading">
         <div class="col-md-4" v-for="dog in dogs" :key="dog.id">
           <!-- {{dog}} -->
-          <div class="card " v-if="dog" @click="onLoadDogs(dog.id)">
+          <div class="card mx-auto" v-if="dog" @click="onLoadDogs(dog.id)">
             <img
               :src="dog.images[0]"
               class="d-block w-100"
@@ -47,7 +47,7 @@
                 <a
                   class="btn btn-primary pt-1 pb-1 pl-3 pr-3 float-right"
                   style="color:#333333; border-radius: 2px; border:none; font-size: 12px; background-color: #f1bf7f"
-                  v-if="dog.alive == true"
+                  v-if="dog.alive == false"
                   >In Memoriam</a
                 >
                 <a

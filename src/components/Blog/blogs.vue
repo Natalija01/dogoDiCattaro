@@ -14,7 +14,7 @@
     </v-layout>
     <div class="row" v-if="!loading">
       <div class="col-md-4" v-for="blog in blogs" :key="blog.id">
-        <div class="card " style="width: 18rem; "  @click="onLoadBlog(blog.id)">
+        <div class="card mx-auto" style="width: 18rem; "  @click="onLoadBlog(blog.id)">
           
             <img
               :src="blog.imageUrl"

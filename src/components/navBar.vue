@@ -76,6 +76,9 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/contact">CONTACT</router-link>
           </li>
+           <li class="nav-item">
+            <router-link class="nav-link" to="/SignIn">Sign In</router-link>
+          </li>
            <li class="nav-item" v-if="user">
             <router-link class="nav-link" to="/dashboard"><v-icon left dark>create</v-icon>Dashboard</router-link>
           </li>
@@ -138,5 +141,8 @@ ul {
   .nav-item {
     border-bottom: 0.3px solid rgb(255, 255, 255);
   }
+}
+.dropdown-item {
+  color: #bdbdbd;
 }
 </style>

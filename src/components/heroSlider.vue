@@ -37,6 +37,7 @@ export default {
         {
           src: "web02.jpg"
         },
+       
       ],
     };
   },

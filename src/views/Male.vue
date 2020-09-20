@@ -30,7 +30,7 @@
     <div class="row" v-if="!loading">
       <div class="col-md-4" v-for="dog in dogs" :key="dog.id">
         <!-- {{dog}} -->
-        <div class="card " style="width: 18rem; " v-if="dog"  @click="onLoadDogs(dog.id)">
+        <div class="card mx-auto" style="width: 18rem; " v-if="dog"  @click="onLoadDogs(dog.id)">
           <img @click="onLoadDogs(dog.id)"
             :src="dog.images[0]"
             class="d-block w-100"
@@ -50,7 +50,7 @@
                 
                 class="btn btn-primary pt-1 pb-1 pl-3 pr-3 float-right"
                 style="color:#333333; border-radius: 2px; border:none; font-size: 12px; background-color: #f1bf7f"
-                >In Memoriam</a
+                v-if="dog.alive == false" >In Memoriam</a
               ><a
                   class="btn btn-primary pt-1 pb-1 pl-3 pr-3 float-left"
                   style="color:white; border-radius: 2px; border:none; font-size: 12px; background-color: #33A5FF "

@@ -13,6 +13,7 @@ import "./assets/style.scss";
 import DateFilter from "@/filters/date.js";
 import alertComp from "@/components/Share/alert.vue";
 import EditBlogdialog from "@/components/Blog/Edit/EditBlogdialog.vue";
+import EditDogdialog from "@/components/Dog/Edit/EditDogdialog.vue";
 import Vuelidate from 'vuelidate'
 
 Vue.use(Vuelidate)
@@ -21,6 +22,7 @@ Vue.config.productionTip = false;
 Vue.filter("date", DateFilter);
 Vue.component("app-alert", alertComp);
 Vue.component("edit-Blog-dialog", EditBlogdialog);
+Vue.component("edit-Dog-dialog", EditDogdialog);
 new Vue({
   router,
   vuetify,
@@ -42,6 +44,7 @@ new Vue({
     });
     this.$store.dispatch("loadBlog");
     this.$store.dispatch("loadDog");
+    this.$store.dispatch("loadGalerija");
    
   },
 }).$mount("#app");

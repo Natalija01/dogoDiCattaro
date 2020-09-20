@@ -15,7 +15,7 @@
 
     <div class="row" v-if="!loading">
       <div class="col-md-4" v-for="blog in blogs" :key="blog.id">
-        <div class="card " style="width: 18rem; ">
+        <div class="card mx-auto" style="width: 18rem; ">
           <img
             :src="blog.imageUrl"
             class="d-block w-100"

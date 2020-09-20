@@ -36,7 +36,7 @@
         <div class="col justify-content-left ">
           <img height="300" width="400" :src="blog.imageUrl" />
         </div>
-        <div class="col justify-content-right">{{ blog.description }}</div>
+        <div class="col justify-content-right mt-3" style="color:	#F0F0F0">{{ blog.description }}</div>
       </div>
     </div>
     <Footer/>

@@ -8,19 +8,25 @@
 
         <v-spacer></v-spacer>
         <div>
-          <a href="https://sr-rs.facebook.com/Dogo-Di-Cattaro-992178320795339/"
-              target="_blank">
+          <a
+            href="https://sr-rs.facebook.com/Dogo-Di-Cattaro-992178320795339/"
+            target="_blank"
+          >
             <img src="facebook.png" width="40px" alt="" class="mx-4"
           /></a>
 
-          <a href="https://www.instagram.com/dogodicattaro/?hl=sr" target="_blank">
+          <a
+            href="https://www.instagram.com/dogodicattaro/?hl=sr"
+            target="_blank"
+          >
             <img src="instagram-sketched.png" width="40px" alt="" class="mx-4"
           /></a>
         </div>
       </v-card-title>
 
       <v-card-text class="py-2 white--text text-center">
-        {{ new Date().getFullYear() }} — <strong>N Studio</strong>
+        
+         {{ new Date().getFullYear() }} — <strong>N Studio</strong>
       </v-card-text>
     </v-card>
   </v-footer>

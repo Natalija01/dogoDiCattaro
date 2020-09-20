@@ -30,7 +30,7 @@
     <div class="container">
       <h2>{{ dog.name }}</h2>
       <hr class="line text-left" style="margin-bottom:20px; margin-top:-5px" />
-
+ <edit-Dog-dialog v-if="user" :dog="dog"> </edit-Dog-dialog>
       <div class="row">
         <!-- /*ovdje mora vfor */ -->
         <div class="col">

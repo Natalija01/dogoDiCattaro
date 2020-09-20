@@ -29,7 +29,7 @@
       <div class="row" v-if="!loading">
         <div class="col-md-4" v-for="dog in dogs" :key="dog.id">
           <!-- {{dog}} -->
-          <div class="card " style="width: 18rem; " v-if="dog" @click="onLoadDogs(dog.id)">
+          <div class="card mx-auto" style="width: 18rem; " v-if="dog" @click="onLoadDogs(dog.id)">
             
             <img
               @click="onLoadDogs(dog.id)"

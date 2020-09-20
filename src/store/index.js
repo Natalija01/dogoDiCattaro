@@ -38,6 +38,9 @@ export const store = new Vuex.Store({
     setTempImages(state, payload) {
       state.tmpImages.push(payload);
     },
+    setFullTempImages(state, payload) {
+      state.tmpImages = payload;
+    },
     setError(state, payload) {
       state.error = payload;
     },
@@ -59,7 +62,46 @@ export const store = new Vuex.Store({
         blog.date = payload.date;
       }
     },
+  
+  updateDog(state, payload) {
+    const dog = state.loadDogs.find((dog) => {
+      return dog.id === payload.id;
+    });
+    if (payload.name) {
+      dog.name = payload.name;
+    }
+    if (payload.callname) {
+      dog.callname = payload.callname;
+    }
+    if (payload.image) {
+      dog.image = payload.image;
+    }
+    if (payload.genre) {
+      dog.genre = payload.genre;
+    }
+    if (payload.alive) {
+      dog.alive = payload.alive;
+    }
+    if (payload.dogForSale) {
+      dog.dogForSale = payload.dogForSale;
+    }
+    if (payload.father) {
+      dog.father = payload.father;
+    }
+    if (payload.mother) {
+      dog.mother = payload.mother;
+    }
+    if (payload.born) {
+      dog.born = payload.born;
+    }
+    if (payload.award) {
+      dog.award = payload.award;
+    }
+    if (payload.images) {
+      dog.images = payload.images;
+    }
   },
+},
   actions: {
     //uzimanje vrijednosti(value) iz Firebase baze
     loadBlog({ commit }) {
@@ -270,6 +312,58 @@ query.on("value", function(snapshot) {
         .then(() => {
           commit("setLoading", false);
           commit("updateBlog", payload);
+        })
+        .catch((error) => {
+          console.log(error);
+          commit("setLoading", false);
+        });
+    },
+
+    updateDogData({ commit }, payload) {
+      commit("setLoading", true);
+      const updateObj = {};
+      if (payload.name) {
+        updateObj.name = payload.name;
+      }
+      if (payload.callname) {
+        updateObj.callname = payload.callname;
+      }
+      if (payload.image) {
+        updateObj.image = payload.image;
+      }
+      if (payload.genre) {
+        updateObj.genre = payload.genre;
+      }
+      if (payload.alive) {
+        updateObj.alive = payload.alive;
+      }
+      if (payload.dogForSale) {
+        updateObj.dogForSale = payload.dogForSale;
+      }
+      if (payload.father) {
+        updateObj.father = payload.father;
+      }
+      if (payload.mother) {
+        updateObj.mother = payload.mother;
+      }
+      if (payload.born) {
+        updateObj.born = payload.born;
+      }
+      if (payload.award) {
+        updateObj.award = payload.award;
+      }
+      if (payload.images) {
+        updateObj.images = payload.images;
+      }
+      firebase
+        .database()
+        .ref("dogs")
+        .child(payload.id)
+        .update(updateObj)
+
+        .then(() => {
+          commit("setLoading", false);
+          commit("updateDog", payload);
         })
         .catch((error) => {
           console.log(error);

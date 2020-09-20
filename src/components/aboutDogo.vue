@@ -9,25 +9,21 @@
             style="margin-bottom:20px; margin-top:-10px"
           />
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            semper tincidunt ligula, lacinia blandit ligula auctor sit amet. Ut
-            sed iaculis sem. Morbi sit amet dui quis leo rhoncus ullamcorper
-            vitae posuere libero. Suspendisse pellentesque risus nulla, nec
-            placerat urna accumsan non. Pellentesque auctor lectus ac sem
-            porttitor, fermentum rutrum nunc aliquet. In at urna rhoncus lacus
-            tristique finibus. Mauris ornare eleifend ante ut tristique. Nam
-            maximus felis vel ante consectetur cursus. Integer sed fermentum
-            libero. Interdum et malesuada fames ac ante ipsum primis in
-            faucibus. Sed vulputate mattis vestibulum. Proin finibus venenatis
-            mi, ac efficitur tellus egestas sed. Praesent quis nulla eu dolor
-            euismod porta. Nunc rhoncus quam sit amet hendrerit finibus. Vivamus
-            ornare, mi vitae vehicula scelerisque, sapien justo scelerisque est,
-            et iaculis arcu nulla eu tellus. Duis pharetra purus arcu. Duis
-            tristique pharetra finibus. Duis congue ultrices mauris, non
-            sollicitudin nunc iaculis vel. Pellentesque nibh urna, ullamcorper
-            vel sem vitae, malesuada interdum libero. Donec eget feugiat mauris.
-            Curabitur magna risus, fringilla vel varius eget, maximus malesuada
-            arcu. Nam ac est sapien.
+            Dogo di Cattaro is a kennel for the Dogo Argentino breed, founded in
+            2015 and has been operating within the Top Dogo Montenegro Team
+            since 2020. The aim of the kennel "Dogo di Cattaro" is to maintain
+            the tradition of the race Dogo Argentino and to try to improve the
+            race, in accordance with the guidelines left by the creator of the
+            race, Mr Antonio Nores Martinez. In order to achieve our goal, we
+            had to provide strong basis and the offspring of the best
+            representatives of the race, which proved to be extraordinary
+            exhibits, and, at the same time, the best working dogs within the
+            race. Dogo di Cattaro is based on the offspring of the best
+            representatives of kennels De la Cocha, Del Litoral, De el Tumi,Di
+            casa Nardini,Alfa Fiera,De la Paco Cassa. In a very short period of
+            time, the dogs from our breeding managed to become European and
+            World Champions, so we can proudly say that Dogo di Cattaro is home
+            to World and European Champions.
           </p>
         </div>
         <div class="col-lg-6 mt-3">
