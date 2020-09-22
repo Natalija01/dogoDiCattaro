@@ -112,7 +112,7 @@
                 <p v-for="award in awards" :key="award.id">
                   <span class="p-1 align-items-start">{{ award }},</span>
                 </p>
-
+                
                 <v-btn raised @click="addAward" class="mb-3"
                   >Dodaj nagradu</v-btn
                 >
@@ -155,6 +155,7 @@ export default {
     };
   },
   methods: {
+    
     onSaveChanges() {
       if (
         this.editedName.trim() === "" ||

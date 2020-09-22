@@ -57,20 +57,7 @@
           >
            
           </v-text-field>
-          <p style="text-align:left; font-size:16px; font-weight: bold;">
-                  Izaberi pol:
-                </p>
-                <v-radio-group
-                  v-model="editedGenre"
-                  :mandatory="false"
-                  @change="uzmiPol()"
-                >
-                  <v-radio label="Muški" :value="false"></v-radio>
-                  <v-radio
-                    label="Ženski"
-                    :value="true"
-                  ></v-radio> </v-radio-group
-              > 
+          
            </v-flex
       ></v-layout>
       <v-divider></v-divider>
@@ -101,25 +88,23 @@ export default {
       editedFather: this.dog.father,
       editedMother: this.dog.mother,
       editedBorn: this.dog.born,
-      editedGenre: this.dog.genre
+     
     };
   },
   methods: {
-    uzmiPol(event) {
-      this.genre = event.target.value;
-    },
+   
     onSaveChanges() {
       if (
         this.editedName.trim() === "" ||
         this.editedCallname.trim() === "" ||
         this.editedFather.trim() === "" ||
         this.editedMother.trim() === "" ||
-        this.editedGenre === "" ||
-        this.editedBorn.trim() === ""
+        this.editedBorn.trim() === "" 
       ) {
         return;
       }
       this.dialog = false;
+      
       this.$store.dispatch("updateDogData", {
         id: this.dog.id,
         name: this.editedName,
@@ -127,7 +112,8 @@ export default {
         father: this.editedFather,
         mother: this.editedMother,
         born: this.editedBorn,
-        genre: this.editedGenre
+        
+        
       });
     },
   },
