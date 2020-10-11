@@ -12,6 +12,7 @@ export const store = new Vuex.Store({
     error: null,
     loadDogs: [],
     tmpImages: [],
+    galleryImages: []
   },
 
   mutations: {
@@ -221,6 +222,50 @@ query.on("value", function(snapshot) {
         })
         .catch((error) => {
           console.log(error);
+        });
+    },
+    loadGallery(context) {
+      context.commit("setLoading", true);
+      var storageRef = firebase.storage().ref("dogs");
+      storageRef.listAll().then(function(result) {
+        result.items.forEach(function(imageRef) {
+          // And finally display them
+          // displayImage(imageRef);
+          imageRef.getDownloadURL().then(function(url) {
+            context.state.galleryImages.push(url);
+            context.commit("setLoading", false);
+          }).catch(function(error) {
+            context.commit("setLoading", false);
+            console.log(error);
+          });
+        });
+      }).catch(function (error) {
+        console.log(error);
+        context.commit("setLoading", false);
+      });
+    }
+    ,
+    addNewImage(context, payload) {
+      const { id, image } = payload;
+      context.commit("setLoading", true);
+      const fileName = image.name.slice(0, image.name.lastIndexOf("."));
+      const ext = image.name.slice(image.name.lastIndexOf("."));
+      return firebase
+        .storage()
+        .ref("dogs" + "/" + fileName + ext)
+        .put(image)
+        .then(() => {
+          var urlImage = "";
+          firebase
+            .storage()
+            .ref("dogs" + "/" + fileName + ext)
+            .getDownloadURL()
+            .then((downloadURL) => {
+              urlImage = downloadURL;
+              const el = context.state.loadDogs.find(el => el.id === id);
+              el.images.push(urlImage)
+              context.commit("setLoading", false);
+            });
         });
     },
     getImageLinks({ commit }, payload) {
@@ -452,7 +497,7 @@ query.on("value", function(snapshot) {
     dogForSale: (state) => {
       return state.loadDogs.filter((dog) => dog.dogForSale);
     },
-
+    getGallery: (state) => state.galleryImages,
     user(state) {
       return state.user;
     },

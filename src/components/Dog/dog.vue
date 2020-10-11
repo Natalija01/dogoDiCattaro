@@ -30,13 +30,37 @@
     <div class="container">
       <h2>{{ dog.name }}</h2>
       <hr class="line text-left" style="margin-bottom:20px; margin-top:-5px" />
- <edit-Dog-dialog v-if="user" :dog="dog"> </edit-Dog-dialog>
+      <edit-Dog-dialog v-if="user" :dog="dog"> </edit-Dog-dialog>
       <div class="row">
         <!-- /*ovdje mora vfor */ -->
         <div class="col">
-          <h3 class="mb-3">Awards</h3>
+          <div class="row" style="display:flex;width:100%;">
+            <h3>Awards</h3>
+            <v-btn color="secondary" @click="() => (addAwards = true)">+</v-btn>
+          </div>
+          <div class="row" v-if="addAwards">
+            <v-text-field
+              placeholder="New award"
+              v-model="newAwards"
+              outlined
+            ></v-text-field>
+            <v-btn color="secondary" x-large @click="pushNewAward">Add</v-btn>
+          </div>
           <ul>
-            <li v-for="(awr, i) in dog.award" :key="i">{{ awr }}</li>
+            <div
+              v-for="(awr, i) in dog.award"
+              :key="i"
+              style="display:flex;width:100%;"
+            >
+              <li style="width:100%;">
+                {{ awr }}
+              </li>
+              <div style="width:100%;">
+                <v-btn color="primary" x-small @click="removeAward(awr, i)"
+                  >Remove</v-btn
+                >
+              </div>
+            </div>
           </ul>
         </div>
         <div class="col">
@@ -60,7 +84,16 @@
         <v-carousel-item v-for="(img, i) in dog.images" :key="i" :src="img">
         </v-carousel-item>
       </v-carousel>-->
-
+      <v-btn raised @click="onPickFile" style="margin-bottom:20px;"
+        >Upload image</v-btn
+      >
+      <input
+        type="file"
+        style="display:none"
+        ref="fileInput"
+        accept="image/*"
+        @change="onFilePicked"
+      />
       <div class="row">
         <gallery
           :images="dog.images"
@@ -68,18 +101,32 @@
           @close="index = null"
         ></gallery>
         <div
-          class="image"
+          class="image-holder"
           v-for="(image, imageIndex) in dog.images"
           :key="imageIndex"
-          @click="index = imageIndex"
-          :style="{
-            backgroundImage: 'url(' + image + ')',
-            width: '360px',
-            height: '240px',
-          }"
-        ></div>
+        >
+          <div
+            class="image"
+            @click="index = imageIndex"
+            :style="{
+              backgroundImage: 'url(' + image + ')',
+              width: '360px',
+              height: '240px'
+            }"
+          ></div>
+          <v-btn color="primary" x-small @click="removeImage(image, imageIndex)"
+            >Remove Image</v-btn
+          >
+        </div>
       </div>
     </div>
+    <v-btn
+      color="primary"
+      x-large
+      style="margin-bottom:20px"
+      @click="saveChanges"
+      >Save changes</v-btn
+    >
     <Footer />
   </div>
 </template>
@@ -91,10 +138,56 @@ export default {
   data() {
     return {
       index: null,
+      image: null,
+      addAwards: false,
+      newAwards: ""
     };
   },
   props: ["id"],
   components: { gallery: VueGallery, Footer },
+  methods: {
+    pushNewAward() {
+      if(this.newAwards.length > 0) {
+        this.dog.award.push(this.newAwards);
+        this.addAwards = false;
+        this.newAwards = '';
+      }
+    },
+    saveChanges() {
+      this.$store.dispatch("updateDogData", this.dog);
+    },
+    removeAward(award, index) {
+      this.dog.award.splice(index, 1);
+    },
+    removeImage(image, index) {
+      this.dog.images.splice(index, 1);
+    },
+    uploadImage() {
+      const data = {
+        id: this.id,
+        image: this.image
+      };
+      this.$store.dispatch("addNewImage", data);
+    },
+    onPickFile() {
+      this.$refs.fileInput.click();
+    },
+    onFilePicked(event) {
+      //files is list of imaages by puting files[0] we are taking just one
+      const files = event.target.files;
+      let filename = files[0].name;
+      if (filename.lastIndexOf(".") <= 0) {
+        return alert("Please add a valid file!");
+      }
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", () => {
+        this.imgURL = fileReader.result;
+      });
+      fileReader.readAsDataURL(files[0]);
+      this.image = files[0];
+      this.uploadImage();
+    }
+  },
   computed: {
     dog() {
       return this.$store.getters.loadedDog(this.id);
@@ -107,18 +200,22 @@ export default {
     },
     loading() {
       return this.$store.getters.loading;
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style>
+.image-holder {
+  padding: 15px;
+  background-color: #b9b6b6;
+  margin: 5px;
+}
 .image {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   border: 1px solid #b9b6b6;
-  margin: 5px;
 }
 ul {
   text-align: left;

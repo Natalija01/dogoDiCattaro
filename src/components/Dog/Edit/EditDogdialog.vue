@@ -55,10 +55,13 @@
             v-model="editedBorn"
             :rules="['Required']"
           >
-           
           </v-text-field>
-          
-           </v-flex
+          <v-switch
+            v-model="editDogForSale"
+            :label="
+              editDogForSale ? 'Pas je na prodaju' : 'Pas nije na prodaju'
+            "
+          ></v-switch> </v-flex
       ></v-layout>
       <v-divider></v-divider>
       <v-layout
@@ -88,35 +91,32 @@ export default {
       editedFather: this.dog.father,
       editedMother: this.dog.mother,
       editedBorn: this.dog.born,
-     
+      editDogForSale: this.dog.dogForSale
     };
   },
   methods: {
-   
     onSaveChanges() {
       if (
         this.editedName.trim() === "" ||
         this.editedCallname.trim() === "" ||
         this.editedFather.trim() === "" ||
         this.editedMother.trim() === "" ||
-        this.editedBorn.trim() === "" 
+        this.editedBorn.trim() === ""
       ) {
         return;
       }
       this.dialog = false;
-      
+
       this.$store.dispatch("updateDogData", {
         id: this.dog.id,
         name: this.editedName,
         callname: this.editedCallname,
         father: this.editedFather,
         mother: this.editedMother,
-        born: this.editedBorn,
-        
-        
+        born: this.editedBorn
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

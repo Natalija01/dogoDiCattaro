@@ -44,7 +44,7 @@ new Vue({
     });
     this.$store.dispatch("loadBlog");
     this.$store.dispatch("loadDog");
-    this.$store.dispatch("loadGalerija");
+    // this.$store.dispatch("loadGalerija");
    
   },
 }).$mount("#app");
