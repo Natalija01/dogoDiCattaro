@@ -113,7 +113,8 @@ export default {
         callname: this.editedCallname,
         father: this.editedFather,
         mother: this.editedMother,
-        born: this.editedBorn
+        born: this.editedBorn,
+        dogForSale: this.editDogForSale
       });
     }
   }
